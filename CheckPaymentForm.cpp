@@ -7,7 +7,7 @@ namespace {
     static consteval size_t columnsN() {
         return static_cast<size_t>(ProductsTableModel::Columns::NN);
     }
-    static constexpr std::string columnsNames[columnsN()] = {"Product", "Price", "Qty", "Total"};
+    static constexpr std::string_view columnsNames[columnsN()] = {"Product", "Price", "Qty", "Total"};
 
     QString priceToString(float price) {
         return QString::number(price, 'f', 2);
@@ -73,7 +73,7 @@ QVariant ProductsTableModel::headerData(int section, Qt::Orientation orientation
         return {};
     switch (orientation) {
     case Qt::Orientation::Horizontal: {
-        return QString::fromStdString(columnsNames[section]);
+        return QString::fromUtf8(columnsNames[section].data());
     }
     case Qt::Orientation::Vertical: {
         return section + 1;
